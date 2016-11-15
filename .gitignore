@@ -1,6 +1,15 @@
+
+
+
+
 .ccsproject
 .cproject
 .launches/
 .project
 .settings/
+
+
 Debug/
+
+
+*.swp

@@ -74,8 +74,8 @@ namespace Gpio
 	{
 
 	private:
-		port::_port portID;
-		pins::_pins pinID;
+		port::_port m_portID;
+		pins::_pins m_pinID;
 
 	public:
 		Pin();
@@ -90,6 +90,21 @@ namespace Gpio
 		bool isLow();
 
 	};
+        
+        template <port::_port portID,pins::_pins pinID>
+        class TPin
+        {
+            
+            static void setMode( config::mode::_mode pinMode );
+            static void setIOMode( config::ioMode::_ioMode pinIOMode );
+            static void setLow();
+            static void setHigh();
+            static void setValue( u8 val );
+            static void toggle();
+            static bool isHigh();
+            bool isLow();
+
+        };
 
 }
 

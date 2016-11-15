@@ -12,6 +12,12 @@ int main()
 	led.setMode( Gpio::config::mode::gpio );
 	led.setIOMode( Gpio::config::ioMode::output );
 
+	asm(" NOP");
+	asm(" EINT");
+	asm(" NOP");
+
+	__bis_SR_register( GIE );
+
 	while( 1 )
 	{
 		common::sw_delay();
