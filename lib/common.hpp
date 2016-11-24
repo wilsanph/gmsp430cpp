@@ -5,6 +5,8 @@
  *      Author: USER01
  */
 
+#pragma once
+
 #ifndef COMMON_HPP_
 #define COMMON_HPP_
 
