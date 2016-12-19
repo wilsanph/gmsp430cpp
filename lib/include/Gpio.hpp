@@ -1,3 +1,4 @@
+
 /*
  * Gpio.hpp
  *
@@ -52,6 +53,15 @@ namespace Gpio
             {
                 gpio = 0,
                 alternate = 1
+            };
+        }
+
+        namespace alternateMode
+        {
+            enum _alternateMode
+            {
+                ALT_MODE_1 = 0,
+                ALT_MODE_2 = 1
             };
         }
 
@@ -120,6 +130,7 @@ namespace Gpio
 
         void setMode( config::mode::_mode pinMode );
         void setIOMode( config::ioMode::_ioMode pinIOMode );
+        void setAlternateMode( config::alternateMode::_alternateMode pinAlternateMode ); 
         void setLow();
         void setHigh();
         void setValue( u8 val );
@@ -142,6 +153,7 @@ namespace Gpio
         
         static void setMode( config::mode::_mode pinMode );
         static void setIOMode( config::ioMode::_ioMode pinIOMode );
+        static void setAlternateMode( config::alternateMode::_alternateMode pinAlternateMode ); 
         static void setLow();
         static void setHigh();
         static void setValue( u8 val );

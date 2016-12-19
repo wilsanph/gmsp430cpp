@@ -13,49 +13,68 @@
 namespace MapTimer
 {
 
-	struct TimerARegs
-	{
-		u16 TAxCTL;
-		u16 TAxCCTL0;
-		u16 TAxCCTL1;
-		u16 TAxCCTL2;
-		u16 TAxCCTL3;
-		u16 TAxCCTL4;
-		u16 reserved1;
-		u16 reserved2;
-		u16 TAxR;
-		u16 TAxCCR0;
-		u16 TAxCCR1;
-		u16 TAxCCR2;
-		u16 TAxCCR3;
-		u16 TAxCCR4;
-		u16 reserved3;
-		u16 reserved4;
-		u16 TAxEX0;
-		u16 TAxIV;
-	};
+    struct CTLRegFields
+    {
+        u16 reserved1:6;
+        u16 TASSEL:2;
+        u16 ID:2;
+        u16 MC:2;
+        u16 reserved2:1;
+        u16 TACLR:1;
+        u16 TAIE:1;
+        u16 TAIFG:1;
+    };
+    
+    union CTLReg
+    {
+        u16 reg;
+        CTLRegFields fields;
+    };
+    
+    struct CCTLRegFields
+    {
+        u16 CM:2;
+        u16 CCIS:2;
+        u16 SCS:1;
+        u16 SCCI:1;
+        u16 reserved1:1;
+        u16 CAP:1;
+        u16 OUTMOD:3;
+        u16 CCIE:1;
+        u16 CCI:1;
+        u16 OUT:1;
+        u16 COV:1;
+        u16 CCIFG:1;
+    };
+   
+    union CCTLReg
+    {
+        u16 reg;
+        CTLRegFields fields;
+    };
 
-	struct TimerBRegs
-	{
-		u16 TBxCTL;
-		u16 TBxCCTL0;
-		u16 TBxCCTL1;
-		u16 TBxCCTL2;
-		u16 TBxCCTL3;
-		u16 TBxCCTL4;
-		u16 TBxCCTL5;
-		u16 TBxCCTL6;
-		u16 TBxR;
-		u16 TBxCCR0;
-		u16 TBxCCR1;
-		u16 TBxCCR2;
-		u16 TBxCCR3;
-		u16 TBxCCR4;
-		u16 TBxCCR5;
-		u16 TBxCCR6;
-		u16 TBxEX0;
-		u16 TBxIV;
-	};
+    struct TimerRegs
+    {
+        u16 TxyCTL;
+        u16 TxyCCTL0;
+        u16 TxyCCTL1;
+        u16 TxyCCTL2;
+        u16 TxyCCTL3;
+        u16 TxyCCTL4;
+        u16 TxyCCTL5;
+        u16 TxyCCTL6;
+        u16 TxyR;
+        u16 TxyCCR0;
+        u16 TxyCCR1;
+        u16 TxyCCR2;
+        u16 TxyCCR3;
+        u16 TxyCCR4;
+        u16 TxyCCR5;
+        u16 TxyCCR6;
+        u16 TxyEX0;
+        u16 reserved1[6];//[0x22-0x2d]
+        u16 TxyIV;
+    };
 
 }
 

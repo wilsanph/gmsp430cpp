@@ -12,10 +12,17 @@
 
 namespace MapWatchdog
 {
+	namespace address
+	{
+		enum _address
+		{
+			BASE_ADDRESS = 0x015c
+		};
+	}
+
 	struct WatchdogRegs
 	{
-		u8 reserved1[12];
-		u16 WDTCTL;// 0x0c
+		u16 WDTCTL;
 	};
 }
 

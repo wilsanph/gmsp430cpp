@@ -8,36 +8,65 @@
 #ifndef WATCHDOG_HPP_
 #define WATCHDOG_HPP_
 
-namespace Watchdog
+namespace watchdog
 {
 
-	enum _password
-	{
-		password = 0x5a00
-	};
 
 	namespace config
 	{
-		namespace holdWatchdog
+		namespace hold
 		{
-			enum _holdWatchdog
+			enum _hold
 			{
+				DONT_HOLD = 0x0000,
+				HOLD = 0x0080
+			};
+		}
 
+		namespace password
+		{
+			enum _password
+			{
+				PASSWORD = 0x5a00
+			};
+		}
+
+		namespace mode
+		{
+			enum _mode
+			{
+				WATCHDOG_MODE = 0x0000,
+				INTERVAL_MODE =	0x0010
+			};
+		}
+
+		namespace clockSource
+		{
+			enum _clockSource
+			{
+				SMCLK 	= 0x0000,
+				ACLK	= 0x0020,
+				VLOCLK	= 0x0040,
+				X_CLK 	= 0x0060
 			};
 		}
 	}
 
 	class WatchdogTimer
 	{
-	private:
+		public:
 
-	public:
+		WatchdogTimer();
+		~WatchdogTimer();
 
-		void init();
+		void init( config::clockSource::_clockSource pClockSource,
+				   config::mode::_mode pMode,
+				   config::hold::_hold pHold );
+		void hold();
 	};
 
 }
 
-
+#include "../src/WatchdogImplement.hpp"
 
 #endif /* WATCHDOG_HPP_ */

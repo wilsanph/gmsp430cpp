@@ -6,7 +6,6 @@
 
 Gpio::Pin led( Gpio::port::PORT1, Gpio::pins::pin0 );
 Gpio::Pin button( Gpio::port::PORT1, Gpio::pins::pin1 );
-///void fun();
 
 u8 edgesCount = 0;
 
@@ -16,7 +15,7 @@ int main()
 
     led.setMode( Gpio::config::mode::gpio );
     led.setIOMode( Gpio::config::ioMode::output );
-    
+
     button.setMode( Gpio::config::mode::gpio );
     button.setIOMode( Gpio::config::ioMode::input );
     button.enableInterrupt();
@@ -28,8 +27,6 @@ int main()
 
     while( 1 )
     {
-        /// common::sw_delay();
-        /// led.toggle();
     }
 }
 
@@ -41,8 +38,3 @@ __interrupt void port1_isr()
     edgesCount++;
 }
 
-///void fun()
-///{
-///
-///
-///}

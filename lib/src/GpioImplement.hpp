@@ -19,29 +19,38 @@ namespace Gpio
 
     Pin::Pin()
     {
-        this->m_portID = Gpio::port::PORT1;
-        this->m_pinID = Gpio::pins::pin0;
+        m_portID = port::PORT1;
+        m_pinID = pins::pin0;
     }
 
 
-    Pin::Pin( Gpio::port::_port port, Gpio::pins::_pins pinID )
+    Pin::Pin( port::_port port, pins::_pins pinID )
     {
-        this->m_portID = port;
-        this->m_pinID = pinID;
+        m_portID = port;
+        m_pinID = pinID;
     }
 
-    void Pin::setMode( Gpio::config::mode::_mode pinMode )
+    void Pin::setMode( config::mode::_mode pinMode )
     {
         volatile u8 _reg = GPIOMAP( m_portID )->PxSEL;
         _reg = REG_CLEAR_BIT( _reg, m_pinID );
         GPIOMAP( m_portID )->PxSEL = REG_PUT_BIT( _reg, m_pinID, pinMode );
     }
 
-    void Pin::setIOMode( Gpio::config::ioMode::_ioMode ioMode )
+    void Pin::setIOMode( config::ioMode::_ioMode ioMode )
     {
         volatile u8 _reg = GPIOMAP( m_portID )->PxDIR;
         _reg = REG_CLEAR_BIT( _reg, m_pinID );
         GPIOMAP( m_portID )->PxDIR = REG_PUT_BIT( _reg, m_pinID, ioMode );
+    }
+
+    void Pin::setAlternateMode( config::alternateMode::_alternateMode pinAlternateMode )
+    {
+        // Same as setting IO mode, it actually uses that bit to ...
+        // select the alternate function to use from the 2 available options 
+        volatile u8 _reg = GPIOMAP( m_portID )->PxDIR;
+        _reg = REG_CLEAR_BIT( _reg, m_pinID );
+        GPIOMAP( m_portID )->PxDIR = REG_PUT_BIT( _reg, m_pinID, pinAlternateMode );
     }
 
     void Pin::setLow()
@@ -137,6 +146,16 @@ namespace Gpio
         volatile u8 _reg = GPIOMAP( portID )->PxDIR;
         _reg = REG_CLEAR_BIT( _reg, pinID );
         GPIOMAP( portID )->PxDIR = REG_PUT_BIT( _reg, pinID, ioMode );
+    }
+
+    template<port::_port portID, pins::_pins pinID>
+    void TPin<portID,pinID>::setAlternateMode( config::alternateMode::_alternateMode pinAlternateMode )
+    {
+        // Same as setting IO mode, it actually uses that bit to ...
+        // select the alternate function to use from the 2 available options 
+        volatile u8 _reg = GPIOMAP( portID )->PxDIR;
+        _reg = REG_CLEAR_BIT( _reg, pinID );
+        GPIOMAP( portID )->PxDIR = REG_PUT_BIT( _reg, pinID, pinAlternateMode );
     }
 
     template<port::_port portID, pins::_pins pinID>
