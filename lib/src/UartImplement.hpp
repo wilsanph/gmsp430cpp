@@ -33,22 +33,22 @@ namespace uart
 		// Put the modulee in reset state
 		MAP_UART( m_baseAddress )->UCAxCTL1 |= 1;
 
-		MAP_UART( m_baseAddress )->UCAxCTL1 = ( pClockSource );
+		MAP_UART( m_baseAddress )->UCAxCTL1 |= ( pClockSource );
 
 		MAP_UART( m_baseAddress )->UCAxCTL0 = ( pDataBits ) |
 										( pStopBits ) |
 										( pMSBfirst ) |
-										( pParity == config::parity::NONE ? 
+										( pParity == config::parity::NONE ?
 											0x00 : 0x80 ) |
 										( pParity >> 1 );
 
-		if ( pTimingMode == config::timingMode::LOW_FREQUENCY ) 
+		if ( pTimingMode == config::timingMode::LOW_FREQUENCY )
 		{
 			volatile u8 baud_int  = 1048576 / pBaudRate;
 			volatile u8 baud_frac = ( 1048576 - baud_int * pBaudRate ) * 8;
 			baud_frac = baud_frac / pBaudRate + 1;
 
-			// disable the oversampling 
+			// disable the oversampling
 			MAP_UART( m_baseAddress )->UCAxMCTL &= 0xfe;
 
 			MAP_UART( m_baseAddress )->UCAxMCTL |= ( baud_frac << 1 );
