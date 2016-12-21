@@ -4,6 +4,7 @@
 #include "lib/include/Gpio.hpp"
 #include "lib/include/Timer.hpp"
 #include "lib/include/Adc.hpp"
+#include "lib/include/Uart.hpp"
 #include "lib/interrupts.h"
 
 watchdog::WatchdogTimer dog;
@@ -11,7 +12,6 @@ watchdog::WatchdogTimer dog;
 Gpio::Pin led( Gpio::port::PORT1, Gpio::pins::pin0 );
 Gpio::Pin pwmOut( Gpio::port::PORT1, Gpio::pins::pin2 );
 Gpio::Pin adcIn( Gpio::port::PORT6, Gpio::pins::pin0 );
-
 
 Timer::Pwm pwmT0Ch1( Timer::instance::TIMERA0,
                      Timer::channel::CH_1 );
@@ -43,6 +43,8 @@ int main()
 				   adc::config::samplingPeriod::CYCLES_16,
 				   adc::config::multiSC::USE );
     adcMod.configInputChannel( 0, adc::config::inputChannel::A0 );
+
+    uartMod.config();
 
     pwmT0Ch1.stop();
     // 1Mhz clock, and we want 50 hz frequency
