@@ -13,6 +13,9 @@
 typedef unsigned char u8;
 typedef unsigned short u16;
 typedef unsigned int u32;
+typedef signed char i8;
+typedef signed short i16;
+typedef int i32;
 
 #define NULL 0
 
@@ -24,7 +27,28 @@ typedef unsigned int u32;
 
 namespace common
 {
+	void delay10us();
+
 	void sw_delay();
+	extern "C"
+	{
+		extern void delay_us( u16 us );
+		extern void delay_ms( u16 ms );
+	}
+}
+
+void common::delay10us()
+{
+	asm(" NOP");
+	asm(" NOP");
+	asm(" NOP");
+	asm(" NOP");
+	asm(" NOP");
+	asm(" NOP");
+	asm(" NOP");
+	asm(" NOP");
+	asm(" NOP");
+	asm(" NOP");
 }
 
 void common::sw_delay()

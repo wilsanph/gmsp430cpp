@@ -160,6 +160,9 @@ namespace Timer
         void enableInterrupt();
 
         bool isInterruptPending();
+
+        u16 getTimerReg();
+        void setTimerReg( u16 pTimerValue );
     };
 
     class Pwm

@@ -170,6 +170,27 @@ namespace Gpio
         static void selectInputPullResistor( config::pullResistor::_pullResistor pResistor );
     };
 
+
+    namespace cf
+	{
+		void setMode( config::mode::_mode pinMode );
+		void setIOMode( config::ioMode::_ioMode pinIOMode );
+		void setAlternateMode( config::alternateMode::_alternateMode pinAlternateMode );
+		void setLow();
+		void setHigh();
+		void setValue( u8 val );
+		void toggle();
+		bool isHigh();
+		bool isLow();
+
+		void enableInterrupt();
+		void disableInterrupt();
+		void clearInterruptFlag();
+		void selectInterruptEdge( config::interruptEdge::_interruptEdge pIntEdge );
+
+		void selectOutputDriveStrength( config::driveStrength::_driveStrength pStrength );
+		void selectInputPullResistor( config::pullResistor::_pullResistor pResistor );
+	}
 }
 
 #include "../src/GpioImplement.hpp"

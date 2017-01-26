@@ -22,9 +22,9 @@ namespace watchdog
 	{
 	}
 
-	void WatchdogTimer::init( config::clockSource::_clockSource pClockSource,
+	void WatchdogTimer::init( config::hold::_hold pHold,
 							  config::mode::_mode pMode,
-							  config::hold::_hold pHold )
+							  config::clockSource::_clockSource pClockSource )
 	{
 		reinterpret_cast<MapWatchdog::WatchdogRegs*>
 				( MapWatchdog::address::BASE_ADDRESS )->WDTCTL = config::password::PASSWORD |
@@ -40,6 +40,23 @@ namespace watchdog
 																	 _reg | config::hold::HOLD;
 	}	
 
+	void cf::init( config::hold::_hold pHold,
+				   config::mode::_mode pMode,
+				   config::clockSource::_clockSource pClockSource )
+	{
+		reinterpret_cast<MapWatchdog::WatchdogRegs*>
+				( MapWatchdog::address::BASE_ADDRESS )->WDTCTL = config::password::PASSWORD |
+																 pMode | pClockSource | pHold;
+	}
+
+	void cf::hold()
+	{
+		volatile u16 _reg = reinterpret_cast<MapWatchdog::WatchdogRegs*>
+									( MapWatchdog::address::BASE_ADDRESS )->WDTCTL & ( 0x00ff );
+		reinterpret_cast<MapWatchdog::WatchdogRegs*>
+					( MapWatchdog::address::BASE_ADDRESS )->WDTCTL = config::password::PASSWORD |
+																	 _reg | config::hold::HOLD;
+	}
 }
 
 

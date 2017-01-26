@@ -59,12 +59,19 @@ namespace watchdog
 		WatchdogTimer();
 		~WatchdogTimer();
 
-		void init( config::clockSource::_clockSource pClockSource,
-				   config::mode::_mode pMode,
-				   config::hold::_hold pHold );
+		void init( config::hold::_hold pHold = config::hold::HOLD,
+				   config::mode::_mode pMode = config::mode::WATCHDOG_MODE,
+				   config::clockSource::_clockSource pClockSource  = config::clockSource::SMCLK );
 		void hold();
 	};
 
+	namespace cf
+	{
+		void init( config::hold::_hold pHold = config::hold::HOLD,
+				   config::mode::_mode pMode = config::mode::WATCHDOG_MODE,
+				   config::clockSource::_clockSource pClockSource = config::clockSource::SMCLK );
+		void hold();
+	}
 }
 
 #include "../src/WatchdogImplement.hpp"

@@ -62,6 +62,16 @@ namespace Timer
         return false;
     }
 
+    u16 TimeEvent::getTimerReg()
+    {
+    	return TIMERMAP( m_timer )->TxyR;
+    }
+
+    void TimeEvent::setTimerReg( u16 pTimerValue )
+    {
+    	TIMERMAP( m_timer )->TxyR = pTimerValue;
+    }
+
     Pwm::Pwm( instance::_instance pTimer,
               channel::_channel pChannel )
     {

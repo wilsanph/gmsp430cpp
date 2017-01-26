@@ -91,6 +91,15 @@ namespace uart
 			};
 		}
 
+		namespace interruptMode
+		{
+			enum _interruptMode
+			{
+				INTERRUPT_RX = 0x1,
+				INTERRUPT_TX = 0x2
+			};
+		}
+
 	}
 
 	class Uart
@@ -111,7 +120,11 @@ namespace uart
 					 config::clockSource::_clockSource pClockSource,
 					 config::timingMode::_timingMode pTimingMode );
 
+		void enableInterrupt( config::interruptMode::_interruptMode pInterrupt );
+		void disableInterrupt( config::interruptMode::_interruptMode pInterrupt );
+
 		void write( u8 pData );
+		void writeFloat( float value, u8 decimals );
 
 		u8 read();
 	};
