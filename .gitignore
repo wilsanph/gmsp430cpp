@@ -7,7 +7,7 @@
 .launches/
 .project
 .settings/
-
+ros_lib/
 
 Debug/
 
